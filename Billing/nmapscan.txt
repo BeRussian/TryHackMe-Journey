@@ -1,0 +1,31 @@
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-21 16:34 EDT
+Nmap scan report for 10.10.211.227
+Host is up (0.076s latency).
+Not shown: 997 closed tcp ports (reset)
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.4p1 Debian 5+deb11u3 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 79:ba:5d:23:35:b2:f0:25:d7:53:5e:c5:b9:af:c0:cc (RSA)
+|   256 4e:c3:34:af:00:b7:35:bc:9f:f5:b0:d2:aa:35:ae:34 (ECDSA)
+|_  256 26:aa:17:e0:c8:2a:c9:d9:98:17:e4:8f:87:73:78:4d (ED25519)
+80/tcp   open  http    Apache httpd 2.4.56 ((Debian))
+| http-robots.txt: 1 disallowed entry 
+|_/mbilling/
+|_http-server-header: Apache/2.4.56 (Debian)
+| http-title:             MagnusBilling        
+|_Requested resource was http://10.10.211.227/mbilling/
+3306/tcp open  mysql   MariaDB 10.3.23 or earlier (unauthorized)
+Device type: general purpose
+Running: Linux 4.X
+OS CPE: cpe:/o:linux:linux_kernel:4.15
+OS details: Linux 4.15
+Network Distance: 2 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   79.61 ms 10.14.0.1
+2   79.84 ms 10.10.211.227
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 12.88 seconds
