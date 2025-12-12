@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wareville’s Christmas Countdown</title>
+    <style>
+      :root { --fg:#fff; --bg1:#003366; --bg2:#001122; }
+      html,body{height:100%;}
+      body{
+        font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+        color:var(--fg);
+        margin:0;
+        display:grid;
+        place-items:center;
+        text-align:center;
+        overflow:hidden;
+      }
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+        z-index:-2;
+        transition:filter .5s;
+      }
+      #bg{
+        position:fixed;
+        inset:0;
+        width:100vw;
+        height:100vh;
+        z-index:-1;
+        pointer-events:none;
+      }
+      .card{
+        background:rgba(0,0,0,0.45);
+        border:1px solid rgba(255,255,255,0.08);
+        border-radius:16px;
+        box-shadow:0 12px 32px rgba(0,0,0,0.45);
+        padding:1.25rem 1.4rem;
+        max-width:920px;
+        margin:1rem;
+        backdrop-filter:saturate(120%) blur(6px);
+      }
+      h1{font-size:2.3rem;margin:0.2em 0 0.1em;text-shadow:0 2px 8px rgba(0,0,0,0.6);}
+      #countdown{font-size:1.25rem;margin-bottom:1.1em;text-shadow:0 2px 6px rgba(0,0,0,0.5);}
+      h2{margin:0.2em 0 0.4em;font-weight:700;text-shadow:0 2px 6px rgba(0,0,0,0.5);}
+      ul{list-style:none;padding:0;margin:0}
+      li{font-size:1.05rem;padding:0.28em 0;text-shadow:0 2px 6px rgba(0,0,0,0.5)}
+      body.easter::before{filter:hue-rotate(60deg) brightness(1.05)}
+      body.easter h1::before{content:"🐰 ";}
+      body.easter h1::after{content:" 🥚";}
+      @keyframes glitch{
+        0%{transform:translate(0) rotate(0);filter:hue-rotate(0) contrast(1)}
+        20%{transform:translate(-4px,2px) rotate(-.15deg);filter:hue-rotate(90deg) contrast(1.4)}
+        40%{transform:translate(3px,-2px) rotate(.15deg);filter:hue-rotate(180deg) contrast(1.3)}
+        60%{transform:translate(-2px,3px) rotate(-.1deg);filter:hue-rotate(250deg) contrast(1.5)}
+        80%{transform:translate(2px,-1px) rotate(.1deg);filter:hue-rotate(330deg) contrast(1.2)}
+        100%{transform:translate(0) rotate(0);filter:hue-rotate(0) contrast(1)}
+      }
+      .glitch{animation:glitch .8s steps(2,end)}
+      #congrats{
+        margin-top:1rem;
+        padding:0.6rem 1rem;
+        border-radius:8px;
+        background:rgba(255,255,255,0.06);
+        display:inline-block;
+      }
+
+      /* --- Cipher box + copy button --- */
+      #cipherWrap{
+        display:none;
+        margin-top:1rem;
+        text-align:left;
+      }
+      #cipherWrap h3{
+        margin:.4rem 0 .6rem;
+        font-size:1.05rem;
+        font-weight:600;
+      }
+      #cipherBox{
+        width:100%;
+        height:150px;
+        border:1px solid rgba(255,255,255,0.15);
+        border-radius:8px;
+        background:rgba(0,0,0,0.35);
+        padding:.6rem .7rem;
+        box-sizing:border-box;
+        color:#eaeaea;
+        font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        font-size:.9rem;
+        line-height:1.2rem;
+        white-space:pre;       /* no wrapping */
+        overflow:auto;
+      }
+      #copyBtn{
+        margin-top:.6rem;
+        padding:.45rem .8rem;
+        border-radius:8px;
+        border:1px solid rgba(255,255,255,0.18);
+        background:rgba(255,255,255,0.1);
+        color:#fff;
+        cursor:pointer;
+      }
+      #copyBtn:active{transform:translateY(1px)}
+    </style>
+  </head>
+
+  <body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+
+    <main class="card">
+      <h1 id="title">
+        Welcome to Wareville’s <span id="holiday">Christmas</span> Countdown 🎄
+      </h1>
+
+      <div id="countdown"></div>
+
+      <h2 id="listHeader">
+        🎁 This Year's Most Wishlisted <span id="listHoliday">Christmas</span> Items 🎁
+      </h2>
+
+      <ul id="wishlist">Loading wishlist...</ul>
+
+      <div id="congrats" style="display:none"></div>
+
+      <div id="cipherWrap">
+        <h3>Gibberish message (copy and decode with your UNLOCK_KEY)</h3>
+        <div id="cipherBox" aria-label="ciphertext" tabindex="0"></div>
+        <button id="copyBtn" type="button">Copy to clipboard</button>
+      </div>
+    </main>
+
+    <script>
+      /* ---------- Countdown ---------- */
+      function updateCountdown() {
+        const tgt = new Date(new Date().getFullYear(), 11, 25),
+          now = new Date(),
+          d = tgt - now;
+        const el = document.getElementById("countdown");
+        if (d <= 0) {
+          el.textContent = "🎉 Merry Christmas from Wareville! 🎉";
+          return;
+        }
+        const D = Math.floor(d / (1000 * 60 * 60 * 24));
+        const H = Math.floor((d / (1000 * 60 * 60)) % 24);
+        const M = Math.floor((d / (1000 * 60)) % 60);
+        const S = Math.floor((d / 1000) % 60);
+        el.textContent = `${D}d ${H}h ${M}m ${S}s until Christmas!`;
+      }
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      /* ---------- Wishlist Check & Secret Fetch (calls Node backend :8081 via CORS) ---------- */
+      const wishEl = document.getElementById("wishlist"),
+            congratsEl = document.getElementById("congrats"),
+            cipherWrap = document.getElementById("cipherWrap"),
+            cipherBox  = document.getElementById("cipherBox"),
+            copyBtn    = document.getElementById("copyBtn");
+
+      function normalizeLine(s) {
+        return s
+          .replace(/^\uFEFF/, "")
+          .replace(/\u00a0/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
+          .toLowerCase();
+      }
+
+      const cacheBuster = "?v=" + Date.now();
+
+      fetch("wishlist.txt" + cacheBuster, { cache: "no-store" })
+        .then((r) => r.text())
+        .then(async (text) => {
+          const lines = text.split(/\r?\n/).filter((l) => l.length > 0);
+          wishEl.innerHTML = "";
+          for (const L of lines) {
+            const li = document.createElement("li");
+            li.textContent = L;
+            wishEl.appendChild(li);
+          }
+          if (!lines.length) return;
+
+          // Ask authoritative server for the secret/ciphertext.
+          try {
+            const resp = await fetch(
+              "http://" + location.hostname + ":8081/secret" + cacheBuster,
+              { mode: "cors" }
+            );
+            if (!resp.ok) return;
+            const json = await resp.json();
+            if (json && json.ok && json.text) {
+              // Show the ciphertext neatly and enable copy
+              cipherWrap.style.display = "block";
+              cipherBox.textContent = json.text;
+
+              // Stop all glitching immediately on success
+              stopGlitching();
+            }
+          } catch (e) {
+            // ignore
+          }
+        })
+        .catch(() => {
+          wishEl.textContent = "Wishlist not available.";
+        });
+
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(cipherBox.textContent || "");
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => (copyBtn.textContent = "Copy to clipboard"), 1200);
+        } catch {}
+      });
+
+      /* ---------- Snowfall / Easter Emoji Rain ---------- */
+      const canvas = document.getElementById("bg"),
+        ctx = canvas.getContext("2d");
+      let W = 0, H = 0, RAF;
+      const SNOW_MODE = 0, EGG_MODE = 1;
+      let mode = SNOW_MODE, flakes = [];
+      const FLAKE_COUNT_BASE = 90;
+
+      function resize() {
+        W = (canvas.width = innerWidth);
+        H = (canvas.height = innerHeight);
+        initFlakes();
+      }
+      window.addEventListener("resize", resize);
+      resize();
+
+      function rand(a, b) { return Math.random() * (b - a) + a; }
+
+      function initFlakes() {
+        const scale = Math.max(0.6, Math.min(1, (W * H) / (1280 * 720)));
+        const count = Math.floor(FLAKE_COUNT_BASE * scale);
+        flakes = new Array(count).fill(0).map(() => spawnFlake(true));
+      }
+
+      function spawnFlake(initial = false) {
+        return {
+          x: initial ? rand(0, W) : rand(0, W),
+          y: initial ? rand(0, H) : -20,
+          vy: rand(0.25, 0.6),
+          vx: rand(-0.15, 0.25),
+          ch: mode === EGG_MODE ? eggEmoji() : null,
+          s: rand(1.5, 3.5),
+        };
+      }
+
+      function eggEmoji() {
+        const eggs = ["🥚", "🐰", "🐣", "🌸", "🥕", "💐", "🌷"];
+        return eggs[(Math.random() * eggs.length) | 0];
+      }
+
+      function step() {
+        ctx.clearRect(0, 0, W, H);
+        for (const f of flakes) {
+          f.x += f.vx;
+          f.y += f.vy;
+          if (f.y > H + 24 || f.x < -24 || f.x > W + 24) {
+            const i = flakes.indexOf(f);
+            flakes[i] = spawnFlake(false);
+            continue;
+          }
+          if (mode === SNOW_MODE) {
+            ctx.fillStyle = "rgba(255,255,255,0.9)";
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.s, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.font = `${14}px serif`;
+            ctx.fillText(f.ch, f.x, f.y);
+          }
+        }
+        RAF = requestAnimationFrame(step);
+      }
+      RAF = requestAnimationFrame(step);
+
+      /* ---------- Glitch ---------- */
+      let glitchInterval = null;
+
+      function startGlitching() {
+        if (glitchInterval) return;
+        glitchInterval = setInterval(() => {
+          toEaster();
+          setTimeout(() => { toChristmas(); }, 1000);
+        }, 5000);
+      }
+
+      function stopGlitching() {
+        if (glitchInterval) {
+          clearInterval(glitchInterval);
+          glitchInterval = null;
+        }
+        toChristmas();
+      }
+
+      function toEaster() {
+        document.body.classList.add("easter", "glitch");
+        document.getElementById("title").innerHTML =
+          "Welcome to Wareville’s <span id='holiday'>Easter</span> Countdown 🐇";
+        document.getElementById("listHoliday").textContent = "Easter";
+        mode = EGG_MODE;
+        initFlakes();
+      }
+
+      function toChristmas() {
+        document.body.classList.remove("easter", "glitch");
+        document.getElementById("title").innerHTML =
+          "Welcome to Wareville’s <span id='holiday'>Christmas</span> Countdown 🎄";
+        document.getElementById("listHoliday").textContent = "Christmas";
+        mode = SNOW_MODE;
+        initFlakes();
+      }
+
+      startGlitching();
+    </script>
+  </body>
+</html>

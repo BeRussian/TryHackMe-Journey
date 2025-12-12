@@ -1,0 +1,104 @@
+# Nmap 7.95 scan initiated Wed Dec 10 07:47:41 2025 as: /usr/lib/nmap/nmap --privileged -p 22,80,21212,25251 -sC -sV -T4 -A -oN FULL_nmap_scan 10.65.175.111
+Nmap scan report for 10.65.175.111
+Host is up (0.15s latency).
+
+PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH 9.6p1 Ubuntu 3ubuntu13.14 (Ubuntu Linux; protocol 2.0)
+80/tcp    open  http    nginx
+|_http-title: TBFC QA \xE2\x80\x94 EAST-mas
+21212/tcp open  ftp     vsftpd 3.0.5
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_Can't get directory listing: TIMEOUT
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 192.168.171.238
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.5 - secure, fast, stable
+|_End of status
+25251/tcp open  unknown
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP, LDAPBindReq, NULL, RPCCheck, SMBProgNeg, X11Probe: 
+|     TBFC maintd v0.2
+|     Type HELP for commands.
+|   FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, LDAPSearchReq, RTSPRequest: 
+|     TBFC maintd v0.2
+|     Type HELP for commands.
+|     unknown command
+|     unknown command
+|   Help: 
+|     TBFC maintd v0.2
+|     Type HELP for commands.
+|     Commands: HELP, STATUS, GET KEY, QUIT
+|   Kerberos, LPDString, SSLSessionReq, TLSSessionReq, TerminalServerCookie: 
+|     TBFC maintd v0.2
+|     Type HELP for commands.
+|     unknown command
+|   SIPOptions: 
+|     TBFC maintd v0.2
+|     Type HELP for commands.
+|     unknown command
+|     unknown command
+|     unknown command
+|     unknown command
+|     unknown command
+|     unknown command
+|     unknown command
+|     unknown command
+|     unknown command
+|     unknown command
+|_    unknown command
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port25251-TCP:V=7.95%I=7%D=12/10%Time=69396BF4%P=x86_64-pc-linux-gnu%r(
+SF:NULL,29,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20commands\.\n")
+SF:%r(GenericLines,49,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20com
+SF:mands\.\nunknown\x20command\nunknown\x20command\n")%r(GetRequest,49,"TB
+SF:FC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20commands\.\nunknown\x20co
+SF:mmand\nunknown\x20command\n")%r(HTTPOptions,49,"TBFC\x20maintd\x20v0\.2
+SF:\nType\x20HELP\x20for\x20commands\.\nunknown\x20command\nunknown\x20com
+SF:mand\n")%r(RTSPRequest,49,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for
+SF:\x20commands\.\nunknown\x20command\nunknown\x20command\n")%r(RPCCheck,2
+SF:9,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20commands\.\n")%r(DNS
+SF:VersionBindReqTCP,29,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20c
+SF:ommands\.\n")%r(DNSStatusRequestTCP,29,"TBFC\x20maintd\x20v0\.2\nType\x
+SF:20HELP\x20for\x20commands\.\n")%r(Help,4F,"TBFC\x20maintd\x20v0\.2\nTyp
+SF:e\x20HELP\x20for\x20commands\.\nCommands:\x20HELP,\x20STATUS,\x20GET\x2
+SF:0KEY,\x20QUIT\n")%r(SSLSessionReq,39,"TBFC\x20maintd\x20v0\.2\nType\x20
+SF:HELP\x20for\x20commands\.\nunknown\x20command\n")%r(TerminalServerCooki
+SF:e,39,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20commands\.\nunkno
+SF:wn\x20command\n")%r(TLSSessionReq,39,"TBFC\x20maintd\x20v0\.2\nType\x20
+SF:HELP\x20for\x20commands\.\nunknown\x20command\n")%r(Kerberos,39,"TBFC\x
+SF:20maintd\x20v0\.2\nType\x20HELP\x20for\x20commands\.\nunknown\x20comman
+SF:d\n")%r(SMBProgNeg,29,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20
+SF:commands\.\n")%r(X11Probe,29,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20
+SF:for\x20commands\.\n")%r(FourOhFourRequest,49,"TBFC\x20maintd\x20v0\.2\n
+SF:Type\x20HELP\x20for\x20commands\.\nunknown\x20command\nunknown\x20comma
+SF:nd\n")%r(LPDString,39,"TBFC\x20maintd\x20v0\.2\nType\x20HELP\x20for\x20
+SF:commands\.\nunknown\x20command\n")%r(LDAPSearchReq,49,"TBFC\x20maintd\x
+SF:20v0\.2\nType\x20HELP\x20for\x20commands\.\nunknown\x20command\nunknown
+SF:\x20command\n")%r(LDAPBindReq,29,"TBFC\x20maintd\x20v0\.2\nType\x20HELP
+SF:\x20for\x20commands\.\n")%r(SIPOptions,D9,"TBFC\x20maintd\x20v0\.2\nTyp
+SF:e\x20HELP\x20for\x20commands\.\nunknown\x20command\nunknown\x20command\
+SF:nunknown\x20command\nunknown\x20command\nunknown\x20command\nunknown\x2
+SF:0command\nunknown\x20command\nunknown\x20command\nunknown\x20command\nu
+SF:nknown\x20command\nunknown\x20command\n");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 5.18 (93%), Linux 5.4 (93%), Cisco Unified Communications Manager VoIP adapter (91%), Linux 2.6.26 (91%), Linux 2.6.18 (89%), Android 7.1.2 (Linux 3.10) (87%), Linux 2.6.32 (87%), Linux 2.6.32 or 3.10 (87%), Linux 2.6.35 (87%), Linux 2.6.39 (87%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 3 hops
+Service Info: OSs: Linux, Unix; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   147.07 ms 192.168.128.1
+2   ...
+3   146.77 ms 10.65.175.111
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Dec 10 07:51:03 2025 -- 1 IP address (1 host up) scanned in 202.30 seconds

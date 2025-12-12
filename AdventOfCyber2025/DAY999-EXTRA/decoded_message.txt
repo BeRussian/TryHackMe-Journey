@@ -1,0 +1,8 @@
+Well done — the glitch is fixed. Amazing job going the extra mile and saving the site. Take this flag THM{w3lcome_2_A0c_2025}
+
+NEXT STEP:
+If you fancy something a little...spicier....use the FLAG you just obtained as the passphrase to unlock:
+/home/eddi_knapp/.secret/dir
+
+That hidden directory has been archived and encrypted with the FLAG.
+Inside it you'll find the sidequest key.
