@@ -1,0 +1,7 @@
+PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+102/tcp   open  iso-tsap
+502/tcp   open  mbap
+8080/tcp  open  http-proxy
+44818/tcp open  EtherNetIP-2
