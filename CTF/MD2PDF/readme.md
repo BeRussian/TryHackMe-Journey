@@ -5,7 +5,7 @@
 * We start by scanning the target to identify open ports and services:
 
 ```bash
-nmap -F -Pn 10.66.184.117        
+nmap -F -Pn $TARGET_IP  
 
 #Output
 PORT     STATE SERVICE
@@ -20,9 +20,9 @@ PORT     STATE SERVICE
 
 * I tried several basic Markdown injections and HTML tags, but most of them resulted in a `"Bad Request" error`
 
-### lets try diffrent approach
+### let's try different approach
 
-* Lets do a gobuster directory brute-force
+* Lets do a `gobuster` directory brute-force
 
 ``` bash
 gobuster dir -u $TARGET_IP --wordlist=/usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt 
