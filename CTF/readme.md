@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-## Walkthrough of Day 
-=======
+
 ## Walkthrough of Day* - 
->>>>>>> 6a666f76db8a084b5fac52dd6c4b0dba32014466
 
 
 
@@ -25,11 +22,10 @@
 ##
 ## Answers
 
-<<<<<<< HEAD
-=======
+
+
 * 
 ##
->>>>>>> 6a666f76db8a084b5fac52dd6c4b0dba32014466
 #### Q:  
 
 #### A: ``
@@ -45,11 +41,10 @@
 
 #### A: ``
 
-<<<<<<< HEAD
 
 ##
 
-=======
+
 ##
 #### Q: 
 
@@ -58,6 +53,5 @@
 ##
 #### Q: 
 #### A: ``
->>>>>>> 6a666f76db8a084b5fac52dd6c4b0dba32014466
 
 ## You completed the room!!!

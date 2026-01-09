@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Thu Jan  8 18:05:48 2026 as: /usr/lib/nmap/nmap --privileged -Pn -p- -T4 --open -oG ./NMAP/allports.txt 10.66.186.36
+Host: 10.66.186.36 ()	Status: Up
+Host: 10.66.186.36 ()	Ports: 22/open/tcp//ssh///, 53/open/tcp//domain///, 80/open/tcp//http///	Ignored State: closed (65532)
+# Nmap done at Thu Jan  8 18:06:29 2026 -- 1 IP address (1 host up) scanned in 40.40 seconds
